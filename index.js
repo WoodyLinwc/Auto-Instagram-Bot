@@ -10,19 +10,19 @@ const postToInsta = async () => {
     await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD);
 
     const imageBuffer = await get({
-        url: 'https://i.imgur.com/uLTHuSK.png',
+        url: 'https://i.imgur.com/BZBHsauh.jpg',
         encoding: null, 
     });
 
     await ig.publish.photo({
         file: imageBuffer,
-        caption: '(G)-IDLE in my area',
+        caption: 'Really nice photo from the internet!',
     });
 }
 
 postToInsta();
 
-// const cronInsta = new CronJob("30 * * * * *", async () => {
+// const cronInsta = new CronJob("30 5 * * *", async () => {
 //     postToInsta();
 // });
 
