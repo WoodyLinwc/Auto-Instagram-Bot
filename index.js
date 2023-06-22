@@ -31,10 +31,10 @@ const postToInsta = async () => {
   });
 };
 
-postToInsta();
+// postToInsta();
 
-// const cronInsta = new CronJob("* */4 * * *", async () => {
-//     postToInsta();
-// });
+const cronInsta = new CronJob("* */4 * * *", async () => {
+    postToInsta();
+});
 
-// cronInsta.start();
+cronInsta.start();
