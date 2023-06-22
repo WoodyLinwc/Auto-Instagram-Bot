@@ -13,6 +13,7 @@
     "cron": "^2.3.1",
     "dotenv": "^16.3.1",
     "instagram-private-api": "^1.45.3",
+    "jimp": "^0.22.8",
     "request-promise": "^4.2.6",
     "sharp": "^0.32.1"
   }
