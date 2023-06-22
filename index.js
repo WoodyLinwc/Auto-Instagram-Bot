@@ -36,5 +36,4 @@ const postToInsta = async () => {
 const cronInsta = new CronJob("* */4 * * *", async () => {
     postToInsta();
 });
-
 cronInsta.start();
