@@ -3,6 +3,7 @@ require("dotenv").config();
 const { IgApiClient } = require('instagram-private-api');
 const { get } = require('request-promise');
 const CronJob = require("cron").CronJob;
+const fs = require("fs");
 
 // const postToInsta = async () => {
 //     const ig = new IgApiClient();
@@ -19,33 +20,34 @@ const CronJob = require("cron").CronJob;
 //         caption: 'Really nice photo from the internet!',
 //     });
 // }
-const fs2 = require('fs');
 const postToInsta = async () => {
   const ig = new IgApiClient();
+  const sharp = require('sharp');
   ig.state.generateDevice(process.env.IG_USERNAME);
   await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD);
-
-  // Read the uris.json file and parse its content
-  const uris = JSON.parse(fs2.readFileSync('uris.json', 'utf8'));
-
-  // Randomly select a link from the uris array
+  
+  // read the uris.json file and randomly choose a image
+  const uris = JSON.parse(fs.readFileSync("uris.json", "utf8"));
   const randomIndex = Math.floor(Math.random() * uris.length);
-  const randomUri = uris[randomIndex];
+  const uri = uris[randomIndex];
 
   const imageBuffer = await get({
-      url: randomUri,
+      url: uri,
       encoding: null, 
   });
 
+  // convert the image to acceptable format
+  const jpegBuffer = await sharp(imageBuffer).jpeg().toBuffer();
+
   await ig.publish.photo({
-      file: imageBuffer,
-      caption: 'Really nice photo from the internet!',
+      file: jpegBuffer,
+      caption: "#GIDLE #여자아이들",
   });
 };
 
 postToInsta();
 
-// const cronInsta = new CronJob("30 5 * * *", async () => {
+// const cronInsta = new CronJob("* */4 * * *", async () => {
 //     postToInsta();
 // });
 
